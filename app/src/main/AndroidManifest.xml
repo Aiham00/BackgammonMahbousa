@@ -12,11 +12,10 @@
         android:theme="@style/Theme.BackgammonMahbousa"
         tools:targetApi="31">
         <activity
-            android:name=".FullscreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.BackgammonMahbousa.Fullscreen">
+            android:theme="@style/Theme.BackgammonMahbousa">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
