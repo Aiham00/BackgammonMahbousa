@@ -73,44 +73,68 @@ fun BuildBackGammonBoard(name: String) {
 
 @Composable
 fun buildUpperSide(matrix: ArrayList<ArrayList<Int>>,brickSize: Dp) {
+    var modifier: Modifier
     Row(modifier =Modifier.layoutId("upper_row")
         ,horizontalArrangement = Arrangement.Center ){
         for (i in 0..11){
-            buildOneColumn(matrix[i],brickSize)
+            modifier = if(i == 5){
+                Modifier.padding(end = brickSize/3*2)
+            }else{
+                Modifier.padding(end = 0.dp)
+            }
+            buildUpperColumn(matrix[i],brickSize,modifier)
         }
     }
     Row(modifier =Modifier.layoutId("lower_row"),
         verticalAlignment = Alignment.Bottom){
         for (i in 12..23){
-            buildOneColumn(matrix[i],brickSize)
+            modifier = if(i == 17){
+                Modifier.padding(end = brickSize/3*2)
+            }else{
+                Modifier.padding(end = 0.dp)
+            }
+            buildLowerColumn(matrix[i],brickSize,modifier)
         }
     }
 }
 
 @Composable
-fun buildOneColumn(list: ArrayList<Int>, brickSize: Dp) {
-    Column(){
+fun buildUpperColumn(list: ArrayList<Int>, brickSize: Dp,modifier:Modifier) {
+    Column(modifier){
         for(item in list){
-            /*Icon(
-                Icons.Rounded.AddCircle,
-                contentDescription = "Circle",
-                Modifier.size(brickSize)
-            )*/
+            Badge(
+                modifier = Modifier.size(brickSize)
 
-
-                    Badge(
-                        modifier = Modifier.size(brickSize)
-                            .clip(CircleShape)
-                    ){
-                        val badgeNumber = item.toString()
-                        Text(
-                            badgeNumber,
-                            modifier = Modifier.semantics {
-                                contentDescription = "$badgeNumber new notifications"
-                            }
-                        )
+                    .clip(CircleShape)
+            ){
+                val badgeNumber = item.toString()
+                Text(
+                    badgeNumber,
+                    modifier = Modifier.semantics {
+                        contentDescription = "$badgeNumber new notifications"
                     }
+                )
+            }
+        }
+    }
+}
+@Composable
+fun buildLowerColumn(list: ArrayList<Int>, brickSize: Dp,modifier:Modifier) {
+    Column(modifier){
+        for(i in list.size-1 downTo  0){
+            Badge(
+                modifier = Modifier.size(brickSize)
 
+                    .clip(CircleShape)
+            ){
+                val badgeNumber = list[i].toString()
+                Text(
+                    badgeNumber,
+                    modifier = Modifier.semantics {
+                        contentDescription = "$badgeNumber new notifications"
+                    }
+                )
+            }
         }
     }
 }
